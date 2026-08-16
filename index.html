@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Real Talk — Learn by Living</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:["Inter","sans-serif"]}}}}</script>
+
+<style id="account-login-style">
+#accountLoginOverlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(8,12,25,.94);backdrop-filter:blur(8px)}
+#accountLoginCard{width:min(420px,92vw);padding:28px;border-radius:22px;background:#151b2e;color:#fff;box-shadow:0 20px 70px rgba(0,0,0,.45);font-family:Arial,sans-serif}
+#accountLoginCard h2{margin:0 0 8px;font-size:26px}
+#accountLoginCard p{margin:0 0 20px;color:#aeb7d0}
+#accountLoginCard input{width:100%;box-sizing:border-box;margin:7px 0;padding:13px 14px;border:1px solid #35405f;border-radius:12px;background:#0e1322;color:#fff;outline:none}
+#accountLoginBtn{width:100%;margin-top:10px;padding:13px;border:0;border-radius:12px;background:#6c63ff;color:#fff;font-weight:700;cursor:pointer}
+#accountLoginMsg{min-height:20px;margin-top:10px;text-align:center;font-size:14px}
+#accountLogoutBtn{cursor:pointer}
+</style>
+
+<style id="rt-ultimate-css">
+:root{--rt-bg:#07111f;--rt-card:#101d32;--rt-card2:#162842;--rt-text:#f7fbff;--rt-muted:#a9b8cf;--rt-accent:#6c63ff;--rt-good:#35d07f;--rt-warn:#ffc857;--rt-danger:#ff657a}
+body{background:var(--rt-bg)!important}
+#rtUltimate{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--rt-text);position:relative;z-index:5}
+.rt-shell{max-width:1180px;margin:22px auto;padding:0 16px}
+.rt-hero{position:relative;overflow:hidden;padding:28px;border-radius:28px;background:linear-gradient(135deg,#152c4d,#111a36);box-shadow:0 20px 70px #0006;animation:rtIn .7s ease}
+.rt-hero:before,.rt-hero:after{content:"";position:absolute;border-radius:50%;filter:blur(4px);opacity:.22;animation:rtFloat 7s ease-in-out infinite}
+.rt-hero:before{width:180px;height:180px;background:#6c63ff;right:-60px;top:-80px}.rt-hero:after{width:130px;height:130px;background:#35d07f;left:-50px;bottom:-70px;animation-delay:-3s}
+.rt-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.rt-title{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-1.5px;margin:0}
+.rt-sub{color:var(--rt-muted);margin:7px 0 0}.rt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:18px}
+.rt-card{background:linear-gradient(160deg,var(--rt-card),#0d1728);border:1px solid #ffffff12;border-radius:22px;padding:19px;box-shadow:0 12px 35px #0003;transition:.25s;animation:rtIn .6s ease both}
+.rt-card:hover{transform:translateY(-5px);border-color:#ffffff25}
+.rt-icon{font-size:30px}.rt-card h3{margin:7px 0;font-size:20px}.rt-card p{color:var(--rt-muted);margin:0 0 12px;line-height:1.45}
+.rt-btn{border:0;border-radius:13px;padding:11px 15px;background:var(--rt-accent);color:white;font-weight:800;cursor:pointer;transition:.2s;box-shadow:0 8px 20px #0003}.rt-btn:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.08)}
+.rt-btn.alt{background:#243553}.rt-btn.good{background:var(--rt-good);color:#071b12}.rt-stat{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#ffffff08;border-radius:14px;margin-top:10px}
+.rt-progress{height:10px;border-radius:99px;background:#ffffff12;overflow:hidden;margin:12px 0}.rt-progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6c63ff,#35d07f);border-radius:99px;transition:width .7s}
+.rt-tabs{display:flex;gap:8px;overflow:auto;padding:8px 0;margin-top:16px}.rt-tab{white-space:nowrap;padding:10px 14px;border-radius:12px;background:#ffffff08;border:1px solid #ffffff10;color:#dbe7ff;cursor:pointer}.rt-tab.active{background:#6c63ff;color:#fff}
+.rt-view{display:none}.rt-view.active{display:block;animation:rtIn .35s ease}
+.rt-word{font-size:31px;font-weight:900}.rt-example{padding:13px 15px;border-left:3px solid #6c63ff;background:#ffffff07;border-radius:10px;margin-top:10px;color:#dbe7ff}
+.rt-quiz-opt{width:100%;text-align:left;margin:7px 0;background:#ffffff08;color:#fff;border:1px solid #ffffff12;border-radius:13px;padding:13px;cursor:pointer;transition:.2s}.rt-quiz-opt:hover{background:#ffffff12;transform:translateX(3px)}
+.rt-quiz-opt.correct{background:#35d07f22;border-color:#35d07f;color:#b8ffd5}.rt-quiz-opt.wrong{background:#ff657a22;border-color:#ff657a;color:#ffd0d6}
+.rt-toast{position:fixed;right:18px;bottom:18px;z-index:100000;background:#121e34;color:#fff;padding:13px 17px;border-radius:14px;box-shadow:0 15px 40px #0008;animation:rtToast .35s ease}
+.rt-modal{position:fixed;inset:0;z-index:99998;background:#0009;display:flex;align-items:center;justify-content:center;padding:18px}
+.rt-modalbox{width:min(520px,95vw);background:#101d32;border:1px solid #ffffff18;border-radius:24px;padding:22px;box-shadow:0 25px 90px #0009;animation:rtPop .3s ease}
+.rt-input{width:100%;box-sizing:border-box;padding:13px;margin:6px 0;border-radius:12px;border:1px solid #ffffff18;background:#081222;color:#fff}
+.rt-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;background:#ffffff0b;color:#dbe7ff;font-size:13px}
+.rt-xp{font-weight:900;color:#bfc6ff}.rt-streak{color:#ffd36b;font-weight:900}
+@keyframes rtIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes rtPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+@keyframes rtToast{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+@keyframes rtFloat{50%{transform:translate(25px,20px) scale(1.08)}}
+@media(max-width:650px){.rt-hero{padding:20px}.rt-grid{grid-template-columns:1fr}}
+</style>
+
+<style id="rt-v2-css">
+.rt-scroll-list{max-height:520px;overflow-y:auto;padding:4px 8px 12px 2px;scroll-behavior:smooth}
+.rt-scroll-list::-webkit-scrollbar{width:8px}.rt-scroll-list::-webkit-scrollbar-thumb{background:#ffffff22;border-radius:99px}
+.rt-scroll-list .rt-card{animation:rtSlideUp .55s cubic-bezier(.2,.8,.2,1) both}
+.rt-scroll-list .rt-card:nth-child(2){animation-delay:.06s}.rt-scroll-list .rt-card:nth-child(3){animation-delay:.12s}.rt-scroll-list .rt-card:nth-child(4){animation-delay:.18s}.rt-scroll-list .rt-card:nth-child(5){animation-delay:.24s}
+.rt-coin-icon{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe98a,#f4b72d 58%,#bd7811);color:#7a4800;font-size:15px;font-weight:1000;box-shadow:inset 0 0 0 2px #ffd85a,0 3px 10px #0005;vertical-align:middle;margin-right:6px}
+.rt-coin-stat{display:flex!important;align-items:center;gap:4px}
+.rt-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:16px}
+.rt-mini-stat{padding:14px;border-radius:16px;background:#ffffff08;border:1px solid #ffffff10;animation:rtSlideUp .5s ease both}
+.rt-mini-stat b{display:block;font-size:22px;margin-top:3px}
+.rt-speak-box{display:grid;gap:12px}
+.rt-mic{font-size:30px;min-width:58px;height:58px;border-radius:50%;border:0;background:#6c63ff;color:#fff;cursor:pointer;box-shadow:0 10px 28px #6c63ff55;transition:.2s}
+.rt-mic.listening{animation:rtPulse 1s infinite;background:#ff657a}
+.rt-speak-result{min-height:44px;padding:13px 15px;border-radius:13px;background:#ffffff08;color:#dbe7ff}
+.rt-match-good{border:1px solid #35d07f!important;background:#35d07f18!important;color:#baffd3!important}
+.rt-match-bad{border:1px solid #ff657a!important;background:#ff657a18!important;color:#ffd1d7!important}
+@keyframes rtSlideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes rtPulse{0%,100%{transform:scale(1);box-shadow:0 10px 28px #ff657a44}50%{transform:scale(1.1);box-shadow:0 10px 42px #ff657a88}}
+</style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="background">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+  </div>
+
+  <!-- APP -->
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <div class="logo-icon">R</div>
+
+        <div>
+          <h2>REAL TALK</h2>
+          <span>Learn by living</span>
+        </div>
+      </div>
+
+      <nav>
+
+        <button class="nav-btn active" data-page="home">
+          <span>⌂</span>
+          Bosh sahifa
+        </button>
+
+        <button class="nav-btn" data-page="missions">
+          <span>🎮</span>
+          Missiyalar
+        </button>
+
+        <button class="nav-btn" data-page="mistakes">
+          <span>🧠</span>
+          Xatolarim
+        </button>
+
+        <button class="nav-btn" data-page="leaderboard">
+          <span>🏆</span>
+          Reyting
+        </button>
+
+        <button class="nav-btn" data-page="profile">
+          <span>👤</span>
+          Profil
+        </button>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <div class="mini-progress">
+
+          <div class="mini-progress-top">
+            <span>Bugungi progress</span>
+            <strong id="sideProgress">0%</strong>
+          </div>
+
+          <div class="progress">
+            <div id="sideProgressBar"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+
+        <div class="mobile-logo">
+          REAL TALK
+        </div>
+
+        <div class="top-stats">
+          <div class="account-badge" id="accountBadge">👤 Guest</div>
+
+          <div class="stat streak">
+            <span>🔥</span>
+            <div>
+              <small>Streak</small>
+              <strong id="streak">1 kun</strong>
+            </div>
+          </div>
+
+          <div class="stat xp">
+            <span>⭐</span>
+            <div>
+              <small>XP</small>
+              <strong id="xp">0</strong>
+            </div>
+          </div>
+
+          <div class="stat coins-top">
+            <span class="coin-image" aria-hidden="true"></span>
+            <div>
+              <small>COINS</small>
+              <strong id="globalCoins">0</strong>
+            </div>
+          </div>
+
+          <div class="level">
+            <span>LVL</span>
+            <strong id="level">1</strong>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- CONTENT -->
+      <section id="content">
+
+        <!-- HOME -->
+        <div class="page active-page" id="homePage">
+
+          <div class="hero">
+
+            <div class="hero-text">
+
+              <div class="welcome">
+                👋 Salom, tayyormisan?
+              </div>
+
+              <h1>
+                Tilni <span>o‘rganma.</span>
+                <br>
+                Uni <strong>yashab ko‘r.</strong>
+              </h1>
+
+              <p>
+                Real vaziyatlarga kir, gaplash, xato qil,
+                tajriba orttir va tilni o‘zing sezmagan holda o‘rgan.
+              </p>
+
+              <button class="primary-btn" id="startBtn">
+                🎮 Missiyani boshlash
+                <span>→</span>
+              </button>
+
+            </div>
+
+            <div class="hero-card">
+
+              <div class="hero-card-top">
+                <span>🎯</span>
+                <small>BUGUNGI MISSIYA</small>
+              </div>
+
+              <h3>🍔 Restaurant</h3>
+
+              <p>
+                Restoranga kirdingiz.
+                Ofitsiant sizdan buyurtma kutmoqda.
+              </p>
+
+              <div class="mission-mini">
+
+                <span>🇬🇧 English</span>
+
+                <span>+100 XP</span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- LANGUAGE -->
+          <div class="section-title">
+
+            <div>
+              <span class="eyebrow">O‘ZINGIZNI TANLANG</span>
+              <h2>Qaysi tilda gaplashamiz?</h2>
+            </div>
+
+          </div>
+
+          <div class="languages">
+
+            <button class="language-card selected" data-language="English">
+
+              <div class="language-icon">🇬🇧</div>
+
+              <div>
+                <h3>English</h3>
+                <span>12 missiya</span>
+              </div>
+
+              <div class="check">✓</div>
+
+            </button>
+
+            <button class="language-card" data-language="Russian">
+
+              <div class="language-icon">🇷🇺</div>
+
+              <div>
+                <h3>Russian</h3>
+                <span>12 missiya</span>
+              </div>
+
+              <div class="check">✓</div>
+
+            </button>
+
+            <button class="language-card" data-language="Korean">
+
+              <div class="language-icon">🇰🇷</div>
+
+              <div>
+                <h3>Korean</h3>
+                <span>12 missiya</span>
+              </div>
+
+              <div class="check">✓</div>
+
+            </button>
+
+          </div>
+
+
+          <!-- FEATURES -->
+          <div class="features">
+
+            <div class="feature">
+              <div>🎮</div>
+              <h3>Real missions</h3>
+              <p>Haqiqiy hayotdagi vaziyatlarni o‘ynang.</p>
+            </div>
+
+            <div class="feature">
+              <div>🧠</div>
+              <h3>Smart mistakes</h3>
+              <p>Xatolaringiz keyingi mashqlarga aylanadi.</p>
+            </div>
+
+            <div class="feature">
+              <div>🏆</div>
+              <h3>Level up</h3>
+              <p>XP yig‘ing, level oshiring va reytingda chiqing.</p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- MISSIONS -->
+        <div class="page" id="missionsPage">
+
+          <div class="page-header">
+
+            <span class="eyebrow">YOUR JOURNEY</span>
+
+            <h1>Missiyalar</h1>
+
+            <p>
+              Tilni darsda emas, hayotda ishlatishni boshlang.
+            </p>
+
+          </div>
+
+          <div class="mission-grid">
+
+            <button class="mission-card available" data-mission="restaurant">
+
+              <div class="mission-image restaurant">
+                🍔
+              </div>
+
+              <div class="mission-info">
+
+                <div class="mission-tag">BEGINNER</div>
+
+                <h3>Restaurant</h3>
+
+                <p>Ovqat buyurtma qiling.</p>
+
+                <div class="mission-footer">
+                  <span>5 savol</span>
+                  <strong>+100 XP</strong>
+                </div>
+
+              </div>
+
+            </button>
+
+
+            <button class="mission-card available" data-mission="airport">
+
+              <div class="mission-image airport">
+                ✈️
+              </div>
+
+              <div class="mission-info">
+
+                <div class="mission-tag">BEGINNER</div>
+
+                <h3>Airport</h3>
+
+                <p>Aeroportda yo‘l toping.</p>
+
+                <div class="mission-footer">
+                  <span>5 savol</span>
+                  <strong>+100 XP</strong>
+                </div>
+
+              </div>
+
+            </button>
+
+
+            <button class="mission-card available" data-mission="shopping">
+
+              <div class="mission-image shopping">
+                🛍️
+              </div>
+
+              <div class="mission-info">
+
+                <div class="mission-tag">EASY</div>
+
+                <h3>Shopping</h3>
+
+                <p>Do‘konda xarid qiling.</p>
+
+                <div class="mission-footer">
+                  <span>5 savol</span>
+                  <strong>+100 XP</strong>
+                </div>
+
+              </div>
+
+            </button>
+
+
+            <button class="mission-card available" data-mission="hotel">
+
+              <div class="mission-image hotel">
+                🏨
+              </div>
+
+              <div class="mission-info">
+
+                <div class="mission-tag">MEDIUM</div>
+
+                <h3>Hotel</h3>
+
+                <p>Mehmonxonada xona band qiling.</p>
+
+                <div class="mission-footer">
+                  <span>5 savol</span>
+                  <strong>+120 XP</strong>
+                </div>
+
+              </div>
+
+            </button>
+
+
+            <button class="mission-card available" data-mission="metro">
+
+              <div class="mission-image metro">
+                🚇
+              </div>
+
+              <div class="mission-info">
+
+                <div class="mission-tag">MEDIUM</div>
+
+                <h3>Metro</h3>
+
+                <p>Yo‘l so‘rang va metro toping.</p>
+
+                <div class="mission-footer">
+                  <span>5 savol</span>
+                  <strong>+120 XP</strong>
+                </div>
+
+              </div>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- MISTAKES -->
+        <div class="page" id="mistakesPage">
+
+          <div class="page-header">
+
+            <span class="eyebrow">SMART REVIEW</span>
+
+            <h1>Xatolarim</h1>
+
+            <p>
+              Siz qilgan xatolar shu yerda saqlanadi.
+            </p>
+
+          </div>
+
+          <div id="mistakesContainer"></div>
+
+        </div>
+
+
+        <!-- LEADERBOARD -->
+        <div class="page" id="leaderboardPage">
+
+          <div class="page-header">
+
+            <span class="eyebrow">COMPETE</span>
+
+            <h1>🏆 Reyting</h1>
+
+            <p>
+              Do‘stlaringiz bilan bellashing.
+            </p>
+
+          </div>
+
+          <div class="leaderboard">
+
+            <div class="leader first">
+              <div class="rank">1</div>
+              <div class="avatar">👑</div>
+              <div class="leader-name">Aziz</div>
+              <strong>3240 XP</strong>
+            </div>
+
+            <div class="leader second">
+              <div class="rank">2</div>
+              <div class="avatar">🔥</div>
+              <div class="leader-name">Madina</div>
+              <strong>2910 XP</strong>
+            </div>
+
+            <div class="leader you">
+              <div class="rank">3</div>
+              <div class="avatar">😎</div>
+              <div class="leader-name">Siz</div>
+              <strong id="leaderXP">0 XP</strong>
+            </div>
+
+            <div class="leader">
+              <div class="rank">4</div>
+              <div class="avatar">⚡</div>
+              <div class="leader-name">Bexruz</div>
+              <strong>1720 XP</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+        <div class="page" id="profilePage">
+
+          <div class="profile-card">
+
+            <div class="big-avatar">
+              😎
+            </div>
+
+            <h1>Real Talk Player</h1>
+
+            <p>Language explorer</p>
+
+            <div class="profile-level">
+
+              <div>
+                <span>LEVEL</span>
+                <strong id="profileLevel">1</strong>
+              </div>
+
+              <div>
+                <span>TOTAL XP</span>
+                <strong id="profileXP">0</strong>
+              </div>
+
+              <div>
+                <span>STREAK</span>
+                <strong id="profileStreak">1 🔥</strong>
+              </div>
+
+            </div>
+
+            <div class="big-progress">
+
+              <div class="big-progress-top">
+                <span>Keyingi level</span>
+                <strong id="levelProgressText">0 / 500 XP</strong>
+              </div>
+
+              <div class="progress">
+                <div id="profileProgress"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- REWARD SHOP: PASTDA, MARKAZDA -->
+<section class="reward-shop" id="reward-shop">
+        <div class="reward-head">
+          <div>
+            <span class="eyebrow">REWARD SHOP</span>
+            <h2>🪙 Coinlarni demo mukofotga almashtirish</h2>
+            <p>Coinlaringizni tanlang. Bu faqat demo — haqiqiy pul o'tkazilmaydi.</p>
+          </div>
+          <div class="wallet"><span>🪙</span><strong id="rewardCoins">0</strong><small>COINS</small></div>
+        </div>
+      
+        <div class="reward-grid">
+          <button class="reward-card" data-reward-coins="10" data-reward-sum="1000">
+            <div class="reward-icon">💵</div><h3>1 000 so'm</h3><p>10 🪙</p><span>ALMASHTIRISH →</span>
+          </button>
+          <button class="reward-card" data-reward-coins="25" data-reward-sum="2500">
+            <div class="reward-icon">💵</div><h3>2 500 so'm</h3><p>25 🪙</p><span>ALMASHTIRISH →</span>
+          </button>
+          <button class="reward-card" data-reward-coins="50" data-reward-sum="5000">
+            <div class="reward-icon">🎁</div><h3>5 000 so'm</h3><p>50 🪙</p><span>ALMASHTIRISH →</span>
+          </button>
+          <button class="reward-card" data-reward-coins="100" data-reward-sum="10000">
+            <div class="reward-icon">🏆</div><h3>10 000 so'm</h3><p>100 🪙</p><span>ALMASHTIRISH →</span>
+          </button>
+        </div>
+        <div class="reward-history" id="rewardHistory"></div>
+      </section>
+      
+      
+    </main>
+
+  </div>
+
+
+  <!-- GAME MODAL -->
+  <div class="modal" id="gameModal">
+
+    <div class="game-box">
+
+      <button class="close-btn" id="closeGame">×</button>
+
+      <div class="game-top">
+
+        <div>
+          <span class="eyebrow">MISSION</span>
+          <h2 id="gameTitle">Restaurant</h2>
+        </div>
+
+        <div class="game-xp">
+          ⭐ <span id="questionXP">0</span> XP
+        </div>
+
+      </div>
+
+      <div class="question-progress">
+
+        <div class="question-number">
+          <span id="questionNumber">1</span>
+          / 5
+        </div>
+
+        <div class="progress">
+          <div id="questionBar"></div>
+        </div>
+
+      </div>
+
+      <div class="scenario">
+
+        <div class="npc">
+          👩‍🍳
+        </div>
+
+        <div class="bubble">
+
+          <small id="scenarioName">Restaurant</small>
+
+          <h2 id="questionText">
+            What would you like?
+          </h2>
+
+        </div>
+
+      </div>
+
+      <div class="answers" id="answers"></div>
+
+      <div class="result" id="result"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- LEVEL UP -->
+  <div class="level-modal" id="levelModal">
+
+    <div class="level-box">
+
+      <div class="level-icon">🚀</div>
+
+      <h1>LEVEL UP!</h1>
+
+      <p>
+        Tabriklaymiz! Siz yangi levelga chiqdingiz.
+      </p>
+
+      <strong id="newLevel">LEVEL 2</strong>
+
+      <button class="primary-btn" id="closeLevel">
+        Davom etish
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script src="main.js"></script>
+
+
+<div class="reward-modal" id="rewardModal">
+  <div class="reward-modal-box">
+    <button class="reward-close" id="rewardClose">×</button>
+    <div class="reward-big">💳</div>
+    <span class="eyebrow">DEMO ALMASHTIRISH</span>
+    <h2 id="selectedReward">1 000 so'm</h2>
+    <p id="rewardInstruction">Mukofotni olish uchun faqat <b>demo karta raqami</b> kiriting. Haqiqiy karta ma'lumotlarini hech qachon kiritmang.</p>
+
+    <label class="card-label" for="demoCardNumber">Demo karta raqami</label>
+    <input id="demoCardNumber" class="card-input" inputmode="numeric" autocomplete="off"
+           maxlength="19" placeholder="0000 0000 0000 0000" aria-label="Demo karta raqami">
+
+    <div class="card-hint">Faqat demo: 16 ta raqam, masalan 0000 0000 0000 0000</div>
+    <div class="reward-error" id="rewardError"></div>
+
+    <button class="reward-confirm" id="rewardConfirm">Qabul qilish</button>
+    <div class="reward-success" id="rewardSuccess">
+      <div>✅</div>
+      <strong>Qabul qilindi!</strong>
+      <span id="successText"></span>
+    </div>
+  </div>
+</div>
+
+<script id="account-login-script">
+(function(){
+  const DB_KEY="realTalkAccountsDB";
+  const SESSION_KEY="realTalkAccount";
+  const getDB=()=>{try{return JSON.parse(localStorage.getItem(DB_KEY)||"[]")}catch(e){return[]}};
+  const saveDB=db=>localStorage.setItem(DB_KEY,JSON.stringify(db));
+  const getSession=()=>{try{return JSON.parse(localStorage.getItem(SESSION_KEY)||"null")}catch(e){return null}};
+
+  function render(){
+    if(document.getElementById("accountLoginOverlay")) return;
+    const session=getSession();
+    if(session){
+      const badge=document.getElementById("accountBadge");
+      if(badge) badge.innerHTML='👤 <b>'+escapeHtml(session.id)+'</b> <button id="accountLogout" type="button">Chiqish</button>';
+      setTimeout(()=>document.getElementById("accountLogout")?.addEventListener("click",()=>{localStorage.removeItem(SESSION_KEY);location.reload()}),0);
+      return;
+    }
+    showLogin(false);
+  }
+  function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+  function showLogin(register){
+    const old=document.getElementById("accountLoginOverlay"); if(old) old.remove();
+    const overlay=document.createElement("div"); overlay.id="accountLoginOverlay";
+    overlay.innerHTML=`<div id="accountLoginCard" class="shadow-2xl">
+      <div class="text-4xl mb-3">🎮</div>
+      <h2>${register?'Yangi akkaunt yarating':'Akkauntingiz bilan kiring'} 👋</h2>
+      <p>${register?'ID va parol yarating. Akkaunt shu qurilmadagi ID bazasiga saqlanadi.':'ID va parolingizni kiriting.'}</p>
+      <input id="accountId" type="text" autocomplete="username" placeholder="ID">
+      <input id="accountPassword" type="password" autocomplete="current-password" placeholder="Parol">
+      <button id="accountLoginBtn" class="tw-btn">${register?'Akkaunt yaratish':'Kirish'}</button>
+      <button id="accountSwitch" class="tw-link" type="button">${register?'Menda akkaunt bor':'Yangi akkaunt yaratish'}</button>
+      <div id="accountLoginMsg"></div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const msg=document.getElementById("accountLoginMsg");
+    document.getElementById("accountSwitch").onclick=()=>showLogin(!register);
+    document.getElementById("accountLoginBtn").onclick=()=>{
+      const id=document.getElementById("accountId").value.trim();
+      const pass=document.getElementById("accountPassword").value;
+      if(id.length<3 || pass.length<4){msg.textContent='ID kamida 3 ta, parol kamida 4 ta belgidan iborat bo‘lsin.';msg.className='error';return;}
+      const db=getDB();
+      const found=db.find(a=>a.id.toLowerCase()===id.toLowerCase());
+      if(register){
+        if(found){msg.textContent='Bu ID allaqachon mavjud.';msg.className='error';return;}
+        db.push({id,pass,createdAt:new Date().toISOString()}); saveDB(db);
+        localStorage.setItem(SESSION_KEY,JSON.stringify({id})); msg.textContent='Akkaunt yaratildi! ✅';msg.className='success';
+        setTimeout(()=>location.reload(),500);
+      }else{
+        if(!found || found.pass!==pass){msg.textContent='ID yoki parol noto‘g‘ri.';msg.className='error';return;}
+        localStorage.setItem(SESSION_KEY,JSON.stringify({id:found.id})); msg.textContent='Kirish muvaffaqiyatli! ✅';msg.className='success';
+        setTimeout(()=>location.reload(),500);
+      }
+    };
+  }
+  window.addEventListener('DOMContentLoaded',render);
+})();
+</script>
+
+<script id="rt-ultimate-js">
+(function(){
+const STORE="rtUltimateState";
+const base={
+ xp:0,coins:120,streak:1,level:1,energy:5,
+ vocab:[],completed:{},lastDate:"",
+ stats:{lessons:0,correct:0,wrong:0}
+};
+let s=JSON.parse(localStorage.getItem(STORE)||"null")||base;
+function save(){localStorage.setItem(STORE,JSON.stringify(s))}
+function esc(x){return String(x).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function toast(t){let d=document.createElement("div");d.className="rt-toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function addXP(n){s.xp+=n;s.level=Math.floor(s.xp/100)+1;save();renderStats()}
+function renderStats(){
+document.querySelector("#rtCoins").textContent=s.coins;
+document.querySelector("#rtXP").textContent=s.xp;
+document.querySelector("#rtLevel").textContent=s.level;
+document.querySelector("#rtStreak").textContent=s.streak;
+document.querySelector("#rtEnergy").textContent=s.energy;
+document.querySelector("#rtXPbar").style.width=(s.xp%100)+"%";
+document.querySelector("#rtLessonCount").textContent=s.stats.lessons;
+document.querySelector("#rtCorrect").textContent=s.stats.correct;
+}
+const vocab=[
+["achieve","erishmoq","I want to achieve my goal."],["improve","yaxshilamoq","I want to improve my English."],
+["confident","o'ziga ishongan","She feels confident when she speaks."],["challenge","qiyinchilik","This task is a new challenge."],
+["opportunity","imkoniyat","Learning gives you new opportunities."],["environment","atrof-muhit","We should protect the environment."],
+["experience","tajriba","Practice gives you experience."],["success","muvaffaqiyat","Hard work can lead to success."],
+["although","garchi","Although it was hard, I continued."],["immediately","darhol","Please answer immediately."]
+];
+const quizzes=[
+["Choose the correct meaning of “achieve”.",["erishmoq","unutmoq","kutmoq","yozmoq"],0],
+["Choose the correct word: “I want to ___ my English.”",["improve","borrow","break","hide"],0],
+["“Confident” means:",["o'ziga ishongan","xafa","charchagan","och"],0],
+["Choose the correct word: “This is a new ___.”",["challenge","success","answer","lesson"],0],
+["“Opportunity” means:",["imkoniyat","muammo","ovqat","savol"],0],
+["Choose the correct word: “We should protect the ___.”",["environment","experience","streak","coin"],0]
+];
+function shuffle(a){return a.map(x=>[Math.random(),x]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
+function makeQuiz(){
+let q=quizzes[Math.floor(Math.random()*quizzes.length)], opts=q[1].map((text,i)=>({text,correct:i===q[2]}));
+opts=shuffle(opts);
+let box=document.querySelector("#rtQuiz");box.innerHTML=`<h3>${q[0]}</h3><div id="rtOpts"></div><div id="rtFeedback" class="rt-example" style="display:none"></div>`;
+opts.forEach(o=>{let b=document.createElement("button");b.className="rt-quiz-opt";b.textContent=o.text;b.onclick=()=>{
+document.querySelectorAll(".rt-quiz-opt").forEach(x=>x.disabled=true);
+let f=document.querySelector("#rtFeedback");
+if(o.correct){b.classList.add("correct");f.style.display="block";f.textContent="Ajoyib! +10 XP ⭐";s.coins+=5;s.stats.correct++;addXP(10);toast("To‘g‘ri javob! +10 XP")}
+else{b.classList.add("wrong");f.style.display="block";f.textContent="Yana bir marta urinib ko‘r. To‘g‘ri javob: "+opts.find(x=>x.correct).text;s.stats.wrong++;s.energy=Math.max(0,s.energy-1);save();renderStats();toast("Xato javob.")}
+};document.querySelector("#rtOpts").appendChild(b)})
+}
+function showModal(title,body){
+let m=document.createElement("div");m.className="rt-modal";m.innerHTML=`<div class="rt-modalbox"><div class="rt-row" style="justify-content:space-between"><h2>${title}</h2><button class="rt-btn alt" id="rtClose">✕</button></div>${body}</div>`;
+document.body.appendChild(m);m.querySelector("#rtClose").onclick=()=>m.remove();return m
+}
+function renderVocab(){
+document.querySelector("#rtVocabList").innerHTML=vocab.map((v,i)=>`<div class="rt-card"><span class="rt-badge">#${i+1}</span><div class="rt-word">${v[0]}</div><p>${v[1]}</p><div class="rt-example">${v[2]}</div><button class="rt-btn" data-v="${i}">+ Vocabulary</button></div>`).join("");
+document.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{let v=vocab[+b.dataset.v];if(!s.vocab.includes(v[0])){s.vocab.push(v[0]);addXP(5);save();toast("So‘z lug‘atingizga qo‘shildi 📚")}else toast("Bu so‘z allaqachon bor")})
+}
+function lesson(type){
+let titles={grammar:"Grammar",vocab:"Vocabulary",speaking:"Speaking",education:"Education"};
+let body= type==="grammar"
+?`<p><b>Present Perfect:</b> have/has + V3. Masalan: <b>I have finished my homework.</b></p><p>Bu zamon o'tmishda boshlangan va hozirga aloqasi bor holatlarda ishlatiladi.</p>`
+:type==="speaking"
+?`<p><b>Speaking tip:</b> Javobni 3 qismda tuz: Answer → Reason → Example.</p><div class="rt-example">“I prefer studying at home because it is quiet. For example, I can focus better there.”</div>`
+:type==="education"
+?`<p><b>Study method:</b> 20 daqiqa o‘rgan → 5 daqiqa tanaffus → o‘rganganingni o‘zingga tushuntir → mini test qil.</p>`
+:`<p><b>Vocabulary rule:</b> So‘zni faqat yodlama. Uni gapda ishlat, keyin ertasi kuni qaytar.</p>`;
+let m=showModal(titles[type],body+`<br><button class="rt-btn good" id="rtDone">Darsni tugatish +20 XP</button>`);
+m.querySelector("#rtDone").onclick=()=>{s.stats.lessons++;addXP(20);save();m.remove();toast("Dars tugadi! +20 XP 🎉")};
+}
+function reward(){
+showModal("🎁 Reward",`<p>Sizda <b>${s.coins} 🪙</b> coin bor.</p><p>Reward olish uchun demo karta oynasi ochiladi.</p><input id="rtCard" class="rt-input" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19"><button class="rt-btn good" id="rtPay">Qabul qilish</button><p class="rt-example">Faqat demo raqamdan foydalaning. Haqiqiy karta ma'lumotlarini kiritmang.</p>`)
+document.querySelector("#rtPay").onclick=()=>{let v=document.querySelector("#rtCard").value.replace(/\D/g,"");if(v.length!==16){toast("16 xonali demo raqam kiriting");return}if(s.coins<50){toast("Reward uchun kamida 50 coin kerak");return}s.coins-=50;save();renderStats();toast("Reward qabul qilindi! 🎉");document.querySelector(".rt-modal")?.remove()}
+}
+function build(){
+let root=document.createElement("div");root.id="rtUltimate";root.innerHTML=`
+<div class="rt-shell">
+<div class="rt-hero"><div class="rt-row" style="justify-content:space-between"><div><div class="rt-badge">⚡ REAL TALK • ULTIMATE</div><h1 class="rt-title">Learn. Play. Level Up.</h1><p class="rt-sub">Duolingo uslubidagi vocabulary, grammar, speaking va education markazi.</p></div><button class="rt-btn" id="rtReward">🎁 Reward</button></div>
+<div class="rt-grid">
+<div class="rt-stat"><span class="rt-coin-stat"><span class="rt-coin-icon">🪙</span> Coins</span><b id="rtCoins">${s.coins}</b></div><div class="rt-stat"><span>⭐ XP</span><b id="rtXP">${s.xp}</b></div><div class="rt-stat"><span>🏆 Level</span><b id="rtLevel">${s.level}</b></div><div class="rt-stat"><span>🔥 Streak</span><b id="rtStreak">${s.streak}</b></div><div class="rt-stat"><span>❤️ Energy</span><b id="rtEnergy">${s.energy}</b></div>
+</div><div class="rt-progress"><i id="rtXPbar" style="width:${s.xp%100}%"></i></div></div>
+<div class="rt-tabs"><button class="rt-tab active" data-tab="dashboard">🏠 Home</button><button class="rt-tab" data-tab="vocab">📚 Vocabulary</button><button class="rt-tab" data-tab="quiz">🧠 Quiz</button><button class="rt-tab" data-tab="education">🎓 Education</button><button class="rt-tab" data-tab="grammar">✍️ Grammar</button><button class="rt-tab" data-tab="speaking">🎤 Speaking</button></div>
+<section class="rt-view active" id="rt-dashboard"><div class="rt-grid">
+<div class="rt-card"><div class="rt-icon">📚</div><h3>Daily Vocabulary</h3><p>Yangi so‘zlarni o‘rgan va lug‘atingni kengaytir.</p><button class="rt-btn" data-open="vocab">Boshlash</button></div>
+<div class="rt-card"><div class="rt-icon">🧠</div><h3>Smart Quiz</h3><p>Variantlar aralashtiriladi. To‘g‘ri javob har doim A emas.</p><button class="rt-btn" data-open="quiz">Testni boshlash</button></div>
+<div class="rt-card"><div class="rt-icon">🎓</div><h3>Education</h3><p>O‘qish usullari, study tips va foydali mini-darslar.</p><button class="rt-btn" data-open="education">O‘rganish</button></div>
+<div class="rt-card"><div class="rt-icon">🏅</div><h3>Progress</h3><p>Darslar: <b id="rtLessonCount">${s.stats.lessons}</b> · To‘g‘ri: <b id="rtCorrect">${s.stats.correct}</b></p><button class="rt-btn alt" id="rtBonus">Daily bonus +15 XP</button></div>
+</div></section>
+<section class="rt-view" id="rt-vocab"><h2>📚 Vocabulary</h2><div class="rt-grid" id="rtVocabList"></div></section>
+<section class="rt-view" id="rt-quiz"><div class="rt-card"><div id="rtQuiz"></div><button class="rt-btn alt" id="rtNext">Yangi savol</button></div></section>
+<section class="rt-view" id="rt-education"><div class="rt-grid"><div class="rt-card"><h3>🎓 Study Skills</h3><p>Pomodoro, active recall va spaced repetition.</p><button class="rt-btn" data-lesson="education">Mini dars</button></div><div class="rt-card"><h3>🧩 Memory</h3><p>So‘zni gap bilan bog‘lash eslab qolishni osonlashtiradi.</p><button class="rt-btn" data-lesson="vocab">Mini dars</button></div></div></section>
+<section class="rt-view" id="rt-grammar"><div class="rt-card"><h2>✍️ Grammar</h2><p>Har bir darsdan keyin o‘zingizning misolingizni tuzing.</p><button class="rt-btn" data-lesson="grammar">Present Perfect darsi</button></div></section>
+<section class="rt-view" id="rt-speaking"><div class="rt-card"><h2>🎤 Speaking</h2><p>Answer → Reason → Example formulasi bilan gapiring.</p><button class="rt-btn" data-lesson="speaking">Speaking darsi</button></div></section>
+</div>`;
+document.body.appendChild(root);
+renderVocab();renderStats();makeQuiz();
+root.querySelectorAll(".rt-tab").forEach(b=>b.onclick=()=>{root.querySelectorAll(".rt-tab").forEach(x=>x.classList.remove("active"));b.classList.add("active");root.querySelectorAll(".rt-view").forEach(v=>v.classList.remove("active"));document.querySelector("#rt-"+b.dataset.tab).classList.add("active");if(b.dataset.tab==="quiz")makeQuiz()});
+root.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>root.querySelector(`[data-tab="${b.dataset.open}"]`).click());
+root.querySelectorAll("[data-lesson]").forEach(b=>b.onclick=()=>lesson(b.dataset.lesson));
+document.querySelector("#rtReward").onclick=reward;
+document.querySelector("#rtNext").onclick=makeQuiz;
+document.querySelector("#rtBonus").onclick=()=>{let k="rtBonus"+new Date().toDateString();if(localStorage.getItem(k))toast("Bugungi bonus olingan!");else{localStorage.setItem(k,"1");addXP(15);s.coins+=10;save();renderStats();toast("Daily bonus! +15 XP +10 🪙")}};
+}
+window.addEventListener("DOMContentLoaded",build);
+})();
+</script>
+
+<script id="rt-v2-js">
+(function(){
+const speechLessons=[
+{q:"Introduce yourself in English.",a:["hello","my name is","i am"]},
+{q:"Say: I am learning English.",a:["i am learning english","i'm learning english"]},
+{q:"Say: I like football.",a:["i like football","i love football"]},
+{q:"Say: I want to improve my English.",a:["i want to improve my english","i wanna improve my english"]}
+];
+let currentSpeech=0,recognition=null;
+function norm(x){return x.toLowerCase().replace(/[.,!?']/g,"").replace(/\s+/g," ").trim()}
+function similarity(spoken, targets){
+spoken=norm(spoken);
+return targets.some(t=>spoken.includes(norm(t)) || norm(t).includes(spoken) && spoken.length>5);
+}
+function speakLesson(){
+let m=document.querySelector("#rtSpeakModal");
+if(m)m.remove();
+let lesson=speechLessons[currentSpeech%speechLessons.length];
+m=document.createElement("div");m.id="rtSpeakModal";m.className="rt-modal";
+m.innerHTML=`<div class="rt-modalbox"><div class="rt-row" style="justify-content:space-between"><h2>🎤 Speaking Practice</h2><button class="rt-btn alt" id="rtSpeakClose">✕</button></div>
+<p>Gapni ovoz chiqarib ayting:</p><div class="rt-example"><b>${lesson.q}</b></div>
+<div class="rt-speak-box"><div id="rtSpoken" class="rt-speak-result">🎙️ Mikrofonni bosing va gapiring...</div>
+<div class="rt-row"><button id="rtMic" class="rt-mic">🎙️</button><button id="rtAnother" class="rt-btn alt">Boshqa gap</button></div>
+<div id="rtSpeakResult" class="rt-speak-result"></div></div></div>`;
+document.body.appendChild(m);
+document.querySelector("#rtSpeakClose").onclick=()=>m.remove();
+document.querySelector("#rtAnother").onclick=()=>{currentSpeech++;m.remove();speakLesson()};
+document.querySelector("#rtMic").onclick=startRecognition;
+}
+function startRecognition(){
+let btn=document.querySelector("#rtMic"),spoken=document.querySelector("#rtSpoken"),result=document.querySelector("#rtSpeakResult");
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR){result.textContent="Brauzeringiz ovozli tanishni qo‘llab-quvvatlamaydi. Chrome/Edge da sinab ko‘ring.";return}
+if(recognition){try{recognition.stop()}catch(e){}}
+recognition=new SR();recognition.lang="en-US";recognition.interimResults=false;recognition.maxAlternatives=3;
+btn.classList.add("listening");spoken.textContent="🎙️ Tinglayapman...";
+recognition.onresult=e=>{
+let text=e.results[0][0].transcript, lesson=speechLessons[currentSpeech%speechLessons.length];
+spoken.textContent="Siz aytdingiz: “"+text+"”";
+if(similarity(text,lesson.a)){
+result.className="rt-speak-result rt-match-good";result.textContent="✅ To‘g‘ri! Talaffuzingiz mos keldi. +15 XP";
+try{if(window.s){window.s.xp+=15;window.s.coins+=5;localStorage.setItem("rtUltimateState",JSON.stringify(window.s))}}catch(e){}
+}else{
+result.className="rt-speak-result rt-match-bad";result.textContent="❌ Hali o‘xshamadi. Yana bir marta urinib ko‘ring.";
+}
+};
+recognition.onerror=e=>{result.textContent="Mikrofon xatosi: "+e.error+". Mikrofon ruxsatini tekshiring."};
+recognition.onend=()=>btn.classList.remove("listening");
+recognition.start();
+}
+function addStats(){
+let dash=document.querySelector("#rt-dashboard");if(!dash)return;
+if(document.querySelector("#rtExtraStats"))return;
+let d=document.createElement("div");d.id="rtExtraStats";d.className="rt-card";d.style.marginTop="16px";
+d.innerHTML=`<h3>📊 Batafsil statistika</h3><div class="rt-stat-grid">
+<div class="rt-mini-stat">🎯 Aniqlik<b id="rtAccuracy">0%</b></div>
+<div class="rt-mini-stat">📚 Lug‘at<b id="rtWords">0</b></div>
+<div class="rt-mini-stat">🔥 Streak record<b id="rtBestStreak">1</b></div>
+<div class="rt-mini-stat">⚡ Energy<b id="rtEnergy2">5</b></div>
+<div class="rt-mini-stat">🏆 Level<b id="rtLevel2">1</b></div>
+<div class="rt-mini-stat"><span class="rt-coin-icon">🪙</span> Coins<b id="rtCoins2">0</b></div>
+</div>`;
+dash.appendChild(d);
+}
+function refreshExtra(){
+let st;try{st=JSON.parse(localStorage.getItem("rtUltimateState")||"{}")}catch(e){st={}};
+let total=(st.stats?.correct||0)+(st.stats?.wrong||0), acc=total?Math.round((st.stats.correct||0)/total*100):0;
+let q=id=>document.getElementById(id); if(q("rtAccuracy"))q("rtAccuracy").textContent=acc+"%";if(q("rtWords"))q("rtWords").textContent=(st.vocab||[]).length;
+if(q("rtBestStreak"))q("rtBestStreak").textContent=st.streak||1;if(q("rtEnergy2"))q("rtEnergy2").textContent=st.energy??5;if(q("rtLevel2"))q("rtLevel2").textContent=st.level||1;if(q("rtCoins2"))q("rtCoins2").textContent=st.coins||0;
+}
+function patch(){
+addStats();refreshExtra();
+let vocab=document.querySelector("#rtVocabList");if(vocab&&!vocab.parentElement.classList.contains("rt-scroll-list")){
+let wrap=document.createElement("div");wrap.className="rt-scroll-list";vocab.parentNode.insertBefore(wrap,vocab);wrap.appendChild(vocab)
+}
+let speaking=document.querySelector("#rt-speaking");
+if(speaking && !document.querySelector("#rtSpeakButton")){
+let b=document.createElement("button");b.id="rtSpeakButton";b.className="rt-btn";b.style.marginTop="12px";b.textContent="🎙️ Ovoz bilan mashq qilish";b.onclick=speakLesson;speaking.querySelector(".rt-card").appendChild(b);
+}
+}
+window.addEventListener("DOMContentLoaded",()=>{setTimeout(patch,400);setInterval(()=>{patch();refreshExtra()},1200)});
+})();
+</script>
+</body>
+</html>
+
